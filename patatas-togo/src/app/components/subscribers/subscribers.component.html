@@ -1,8 +1,11 @@
 <div class="container">
   <main class="mainContainer">
-    <form>
-      <input type="text" placeholder="Buscar suscriptor" />
-    </form>
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Buscar suscriptor"
+    />
+    <button (click)="getData()">Buscar</button>
 
     <button (click)="logout()" id="btnLogout">Logout</button>
   </main>
@@ -42,7 +45,7 @@
       </tr>
     </tbody>
   </table>
-  <div class="d-flex justify-cotent-center">
+  <div class="d-flex justify-cotent-center" id="containerPagination">
     <pagination-controls
       previousLabel="Prev"
       nextLabel="Next"

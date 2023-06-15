@@ -8,18 +8,22 @@ import { Router } from '@angular/router';
 })
 export class ApiService {
 
+
   private apiSubsUrl = 'https://lab.app.invertebrado.co/api/subscribers/';
   private token = localStorage.getItem('token');
 
   constructor(private http:HttpClient, private router: Router) { }
 
-  getData(page: number, count:number): Observable<any> {
+  getData(page: number, count:number,  query: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${ this.token} `);
-    const params = { page: page.toString(), count: count.toString() };
+    const params = { page: page.toString(), count: count.toString(), criteria: query };
     return this.http.get<any>(this.apiSubsUrl, { headers, params });
   }
 
-
+  searchSubs(query: string): Observable<any[]> {
+    const url = `${this.apiSubsUrl}?criteria=${query}`;
+    return this.http.get<any[]>(url);
+  }
 
   logout(): void{
 

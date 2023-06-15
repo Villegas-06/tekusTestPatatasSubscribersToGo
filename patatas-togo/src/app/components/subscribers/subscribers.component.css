@@ -31,3 +31,10 @@ th{
 th, td {
   padding: 8px;
 }
+
+#containerPagination{
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+  font-size: 17px;
+}

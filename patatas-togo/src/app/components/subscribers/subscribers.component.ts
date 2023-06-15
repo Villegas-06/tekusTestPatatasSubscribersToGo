@@ -8,21 +8,34 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./subscribers.component.css'],
 })
 export class SubscribersComponent implements OnInit {
+  // Varibles for set the pagination
   data!: any[];
   pageSize: number = 10;
   currentPage: number = 1;
   totalItems!: number;
   totalPages!: number;
 
-  constructor(private apiService: ApiService) {  }
+  // Varibles for set the search subs
+  searchQuery!: string;
+  searchResults!: any[];
+  inputEmpty!: string;
+
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-      this.getData()
+    this.getData();
   }
 
+  // Create the request to get the API
+
   getData() {
+
+    if(this.searchQuery == undefined){
+      this.searchQuery = "";
+    }
+
     this.apiService
-      .getData(this.currentPage, this.pageSize)
+      .getData(this.currentPage, this.pageSize, this.searchQuery)
       .subscribe((response) => {
         this.data = response.Data;
         this.totalItems = response.Count;
@@ -30,15 +43,24 @@ export class SubscribersComponent implements OnInit {
       });
   }
 
+  //Create the function to make the pagination.
+
   onTableDataChange(page: any) {
     this.currentPage = page;
     this.getData();
   }
-  onTableSizeChange(page: any): void {
-    this.pageSize = page.target.value;
-    this.currentPage = 1;
-    this.getData();
-  }
+
+  /*searchCriteria(){
+    this.apiService.searchSubs(this.searchQuery).subscribe(
+      response =>{
+        this.searchResults = response;
+        console.log(this.searchResults);
+      }
+    );
+  }*/
+
+
+  // Function for logout
 
   logout(): void {
     this.apiService.logout();
