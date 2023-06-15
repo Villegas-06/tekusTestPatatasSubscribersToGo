@@ -10,7 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SubscribersComponent } from './components/subscribers/subscribers.component';
 
 import { AuthInterceptor } from './auth/interceptor.component';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
   { path: '', redirectTo:'/login', pathMatch: 'full' } ,

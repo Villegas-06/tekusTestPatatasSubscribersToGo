@@ -1,1 +1,14 @@
-<p>subscribers works!</p>
+
+<button (click)="logout()">
+  Logout
+</button>
+
+<form>
+
+  <input type="text" placeholder="Buscar suscriptor">
+
+</form>
+
+<ul>
+  <li *ngFor="let item of data">{{ item.SubscriptionStateDescription }}</li>
+</ul>
