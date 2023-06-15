@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ApiService } from '../../services/api.service';
 
@@ -20,7 +21,7 @@ export class SubscribersComponent implements OnInit {
   searchResults!: any[];
   inputEmpty!: string;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.getData();
@@ -59,6 +60,9 @@ export class SubscribersComponent implements OnInit {
     );
   }*/
 
+  createSub(){
+    this.router.navigate(['/create_sub']);
+  }
 
   // Function for logout
 

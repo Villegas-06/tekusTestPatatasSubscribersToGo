@@ -10,6 +10,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { SubscribersComponent } from './components/subscribers/subscribers.component';
+import { NewSubscriberComponent } from './components/new-subscriber/new-subscriber.component';
 
 import { AuthInterceptor } from './auth/interceptor.component';
 import { AuthService } from './services/auth.service';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: '', redirectTo:'/login', pathMatch: 'full' } ,
   { path: 'subscribers', component: SubscribersComponent, canActivate: [AuthService] },
   { path: 'login', component: LoginComponent },
+  { path: 'create_sub', component: NewSubscriberComponent}
 ];
 
 
@@ -25,7 +27,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    SubscribersComponent
+    SubscribersComponent,
+    NewSubscriberComponent
   ],
   imports: [
     BrowserModule,

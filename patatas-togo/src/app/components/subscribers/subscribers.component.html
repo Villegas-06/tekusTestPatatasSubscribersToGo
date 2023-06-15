@@ -1,14 +1,18 @@
 <div class="container">
   <main class="mainContainer">
-    <input
-      type="text"
-      [(ngModel)]="searchQuery"
-      placeholder="Buscar suscriptor"
-    />
-    <button (click)="getData()">Buscar</button>
+    <form>
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        placeholder="Buscar suscriptor"
+      />
+      <button (click)="getData()">Buscar</button>
+    </form>
 
     <button (click)="logout()" id="btnLogout">Logout</button>
   </main>
+
+  <button (click)="createSub()">Create new subs</button>
 
   <table id="myTable">
     <thead>
