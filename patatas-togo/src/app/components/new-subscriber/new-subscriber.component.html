@@ -1,1 +1,24 @@
-<p>new-subscriber works!</p>
+<form [formGroup]="subscriberForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" formControlName="name" />
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email" />
+  </div>
+
+  <div>
+    <label for="phoneCode">Phone code:</label>
+    <input type="number" id="phoneCode" formControlName="phoneCode" />
+  </div>
+
+  <div>
+    <label for="phone">Phone:</label>
+    <input type="number" id="phone" formControlName="phone" />
+  </div>
+
+
+  <button type="submit">Crear Suscriptor</button>
+</form>

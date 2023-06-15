@@ -21,16 +21,22 @@ export class ApiService {
     return this.http.get<any>(this.apiSubsUrl, { headers, params });
   }
 
-  searchSubs(query: string): Observable<any[]> {
-    const url = `${this.apiSubsUrl}?criteria=${query}`;
-    return this.http.get<any[]>(url);
+  createSubscriber(subscriberData: any): Observable<any> {
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    return this.http.post<any>(this.apiSubsUrl, subscriberData, {headers});
+
   }
 
   logout(): void{
+    console.log(this.token)
+
 
     this.token = null;
     localStorage.setItem('token', "");
     this.router.navigate(['/login']);
+
+
 
   }
 
