@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule, Router } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { HTTP_INTERCEPTORS, HttpClientModule  } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { SubscribersComponent } from './components/subscribers/subscribers.component';
 
-import { HTTP_INTERCEPTORS, HttpClientModule  } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth/interceptor.component';
-
-import { Routes, RouterModule } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthService } from './auth.service';
 
 const routes: Routes = [
   { path: '', redirectTo:'/login', pathMatch: 'full' } ,
-  { path: 'subscribers', component: SubscribersComponent },
+  { path: 'subscribers', component: SubscribersComponent, canActivate: [AuthService] },
   { path: 'login', component: LoginComponent },
 ];
 
@@ -40,4 +40,19 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor(private authService: AuthService, private router: Router) {
+    // Check if is authenticated and load the aplication.
+    authService.checkIfUserIsLoggedIn().subscribe(authenticated => {
+      if (!authenticated) {
+        //Redirect to login page if is not authenticated
+        router.navigate(['/login']);
+      }else{
+        //Redirect to subscribers page if is authenticated
+        router.navigate(['/subscribers']);
+      }
+    });
+  }
+
+}

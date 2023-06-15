@@ -3,9 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { SubscribersComponent } from '../subscribers/subscribers.component';
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -44,15 +41,17 @@ export class LoginComponent implements OnInit {
       .post<any>('https://lab.app.invertebrado.co/api/account/login', body)
       .subscribe(
         (response) => {
-
           // Save the token in local storage
           const token = response.Token;
+          localStorage.setItem('token', token);
 
           //Redirect to subscribers page when the user is valid
 
-          this.router.navigate(['/subscribers']);
-
-
+          if (token != '') {
+            this.router.navigate(['/subscribers']);
+          } else {
+            alert('Not credentials');
+          }
         },
         (error) => {
           alert(
