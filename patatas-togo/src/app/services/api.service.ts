@@ -13,10 +13,13 @@ export class ApiService {
 
   constructor(private http:HttpClient, private router: Router) { }
 
-  getData(): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-    return this.http.get<any>(this.apiSubsUrl, { headers });
+  getData(page: number, count:number): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${ this.token} `);
+    const params = { page: page.toString(), count: count.toString() };
+    return this.http.get<any>(this.apiSubsUrl, { headers, params });
   }
+
+
 
   logout(): void{
 

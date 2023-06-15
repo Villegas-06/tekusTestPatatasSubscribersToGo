@@ -5,24 +5,42 @@ import { ApiService } from '../../services/api.service';
 @Component({
   selector: 'app-subscribers',
   templateUrl: './subscribers.component.html',
-  styleUrls: ['./subscribers.component.css']
+  styleUrls: ['./subscribers.component.css'],
 })
-export class SubscribersComponent implements OnInit{
+export class SubscribersComponent implements OnInit {
+  data!: any[];
+  pageSize: number = 10;
+  currentPage: number = 1;
+  totalItems!: number;
+  totalPages!: number;
 
-  data!:any[];
-
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {  }
 
   ngOnInit(): void {
-    this.apiService.getData().subscribe(data =>{
-      this.data = data.Data;
-      console.log(this.data)
-    })
-
+      this.getData()
   }
 
-  logout():void {
+  getData() {
+    this.apiService
+      .getData(this.currentPage, this.pageSize)
+      .subscribe((response) => {
+        this.data = response.Data;
+        this.totalItems = response.Count;
+        this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+      });
+  }
+
+  onTableDataChange(page: any) {
+    this.currentPage = page;
+    this.getData();
+  }
+  onTableSizeChange(page: any): void {
+    this.pageSize = page.target.value;
+    this.currentPage = 1;
+    this.getData();
+  }
+
+  logout(): void {
     this.apiService.logout();
   }
-
 }

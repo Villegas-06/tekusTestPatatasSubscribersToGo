@@ -1,14 +1,52 @@
+<div class="container">
+  <main class="mainContainer">
+    <form>
+      <input type="text" placeholder="Buscar suscriptor" />
+    </form>
 
-<button (click)="logout()">
-  Logout
-</button>
+    <button (click)="logout()" id="btnLogout">Logout</button>
+  </main>
 
-<form>
-
-  <input type="text" placeholder="Buscar suscriptor">
-
-</form>
-
-<ul>
-  <li *ngFor="let item of data">{{ item.SubscriptionStateDescription }}</li>
-</ul>
+  <table id="myTable">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Correo Electrónico</th>
+        <th>Estado Subscriptor</th>
+        <th>País</th>
+        <th>Nombre</th>
+        <th>Número Teléfono</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let item of data
+            | paginate
+              : {
+                  itemsPerPage: pageSize,
+                  currentPage: currentPage,
+                  totalItems: totalItems
+                };
+          let i = index
+        "
+      >
+        <td>{{ item.Id }}</td>
+        <td>{{ item.Email }}</td>
+        <td class="alert alert-danger" role="alert">
+          {{ item.SubscriptionStateDescription | uppercase }}
+        </td>
+        <td>{{ item.CountryCode }}</td>
+        <td>{{ item.Name }}</td>
+        <td>{{ item.PhoneNumber }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-cotent-center">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    ></pagination-controls>
+  </div>
+</div>
